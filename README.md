@@ -124,4 +124,4 @@ For questions or feedback related to this thesis implementation, please reach ou
 
 
 
-**Built as part of academic research on Graph Neural Network explainability** [web:35][web:41]
+**Built as part of academic research on Graph Neural Network explainability**

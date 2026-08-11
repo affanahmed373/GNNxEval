@@ -12,7 +12,7 @@ from torch_geometric.explain import Explainer, GNNExplainer
 from torch_geometric.contrib.explain import GraphMaskExplainer
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 def get_metrics(selected_dataset, selected_model,selected_explainer):
-    path = 'data\Planetoid'
+    path = 'data/Planetoid'
     dataset = Planetoid(path, name= selected_dataset)
     data = dataset[0]
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -41,8 +41,15 @@ def get_metrics(selected_dataset, selected_model,selected_explainer):
     class GIN(torch.nn.Module):
         def __init__(self):
             super().__init__()
-            self.conv1 = GINConv(dataset.num_features, 16)
-            self.conv2 = GINConv(16, dataset.num_classes)
+            nn1 = torch.nn.Sequential(
+                torch.nn.Linear(dataset.num_features, 16),
+                torch.nn.ReLU(),
+            )
+            nn2 = torch.nn.Sequential(
+                torch.nn.Linear(16, dataset.num_classes),
+            )
+            self.conv1 = GINConv(nn1)
+            self.conv2 = GINConv(nn2)
 
         def forward(self, x, edge_index):
             x = self.conv1(x, edge_index).relu()
@@ -86,7 +93,7 @@ def get_metrics(selected_dataset, selected_model,selected_explainer):
 
     if selected_explainer=="GraphMaskExplainer":
         algorithm =GraphMaskExplainer(2, epochs=5)
-    elif selected_explainer=="GNNExplainer(epochs=200)":
+    elif selected_explainer=="GNNExplainer":
         algorithm =GNNExplainer(epochs=200)
 
     topk = 40
@@ -148,7 +155,7 @@ def main():
     selected_model = st.selectbox("Select an GNN architecture", options_model)
     if st.button("Explain"):
         st.write(selected_dataset+", "+selected_explainer+", "+selected_model )
-        explanation = get_metrics(selected_dataset,selected_explainer,selected_model)
+        explanation = get_metrics(selected_dataset,selected_model,selected_explainer)
         # if st.button("Feature_Importance"):
         #     get_feature_importance(explanation)
         # if st.button("Sub_Graph"):

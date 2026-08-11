@@ -2,126 +2,113 @@
 
 **Design and Implementation of a Framework for Graph Neural Network Explainer Evaluation**
 
-GNNxEval is a Flask-based application for evaluating Graph Neural Network (GNN) explainers. The system provides a framework for systematically assessing the quality and effectiveness of GNN explanation methods.
+GNNxEval is a Streamlit-based interactive application for evaluating Graph Neural Network (GNN) explainers. It provides a framework for systematically assessing the quality and effectiveness of GNN explanation methods using established metrics.
 
 ---
 
-## 📋 Overview
+## Overview
 
-This project is the implementation of an academic thesis focused on evaluating explainability methods for Graph Neural Networks. The application runs without requiring GPU support and can be executed on standard hardware.
-
----
-
-## 🚀 Getting Started
-
-### Quick Start
-
-Simply run the application:
-
-```bash
-python gnnxeval.py
-```
-
-The Flask application starts immediately and does not require a GPU to run.
+This project is the implementation of a master's thesis focused on evaluating explainability methods for Graph Neural Networks. Users can select a dataset, GNN architecture, and explainer algorithm, then compute evaluation metrics through an interactive web interface. The application runs without requiring GPU support.
 
 ---
 
-## 🛠️ Installation & Setup
+## Getting Started
 
-### Conda Environment (Recommended)
+### Prerequisites
 
-The project was developed and configured within a **Conda environment**, which is the recommended setup for reproducing the original runtime configuration.
+- Python 3.10+
+- [Conda](https://docs.conda.io/) (recommended) or pip
 
-1. Create and activate the Conda environment (environment file should be provided separately):
+### Installation
+
+1. Clone the repository:
    ```bash
-   conda env create -f environment.yml
-   conda activate gnnxeval
+   git clone https://github.com/affanahmed373/GNNxEval.git
+   cd GNNxEval
    ```
 
-2. The Conda environment includes both CPU and GPU-related dependencies, making it suitable for experiments requiring either configuration.
+2. Install dependencies:
+   ```bash
+   pip install torch torchvision
+   pip install torch-geometric
+   pip install streamlit matplotlib numpy pandas scikit-learn
+   ```
 
-### Alternative: requirements.txt
-
-A `requirements.txt` file is included for convenience and reference. However, please note:
-
-- The project was primarily configured in a Conda environment
-- `requirements.txt` is **optional** for this setup and provided mainly for reference
-- For full reproducibility, the Conda environment should be used
-
-To install from `requirements.txt` if needed:
+### Running the Application
 
 ```bash
-pip install -r requirements.txt
+streamlit run gnnxeval.py
+```
+
+The app will open in your browser where you can select a dataset, model, and explainer to evaluate.
+
+---
+
+## Features
+
+- **Interactive UI**: Streamlit-based web interface for selecting datasets, models, and explainers
+- **4 GNN Architectures**: GCN, GAT, GIN, GraphSAGE
+- **2 Explainer Algorithms**: GNNExplainer, GraphMaskExplainer
+- **3 Evaluation Metrics**: Fidelity (positive/negative), Characterization Score, Unfaithfulness
+- **3 Benchmark Datasets**: Cora, CiteSeer, Pubmed (Planetoid)
+- **GPU-Free Execution**: Runs on standard hardware without GPU requirements
+
+---
+
+## Project Structure
+
+```
+GNNxEval/
+├── gnnxeval.py            # Main Streamlit application
+├── gnnexp.ipynb           # GNNExplainer experiments notebook
+├── graphmask.ipynb        # GraphMaskExplainer experiments notebook
+├── captum.ipynb           # CaptumExplainer experiments notebook
+├── comparison.ipynb       # Metric comparison visualizations
+├── data/Planetoid/        # Cora, CiteSeer, Pubmed datasets
+├── requirements.txt       # Conda environment export (reference)
+├── geo.txt                # Pip freeze output (reference)
+└── README.md
 ```
 
 ---
 
-## 📊 Manuscript Reference
+## Evaluation Metrics
+
+| Metric | Description |
+|---|---|
+| **Fidelity** | Measures how faithfully the explanation reflects the model's decision-making (positive and negative) |
+| **Characterization Score** | Combined fidelity metric balancing positive and negative fidelity |
+| **Unfaithfulness** | Quantifies the unreliability of the generated explanation |
+
+---
+
+## Manuscript Reference
 
 The following table from the thesis manuscript is applicable to this implementation:
 
 ![Figure from Manuscript](https://github.com/affanahmed373/GNNxEval/assets/56910741/07e5d049-26fa-4b90-aa94-b45679d54919)
 
-This visualization demonstrates the evaluation framework architecture and methodology described in the thesis.
+---
+
+## Tech Stack
+
+- **Streamlit** — Interactive web UI
+- **PyTorch** — Deep learning framework
+- **PyTorch Geometric (PyG)** — Graph neural network library and explainability tools
+- **Matplotlib** — Visualization
 
 ---
 
-## 🧪 Features
+## Citation
 
-- **GPU-Free Execution**: The application runs on standard hardware without GPU requirements
-- **GNN Explainer Evaluation**: Comprehensive framework for assessing Graph Neural Network explanation methods
-- **Flask-Based Interface**: Web application interface for interactive evaluation
-- **Academic Implementation**: Direct implementation of thesis research methodology
-
----
-
-## 📁 Project Structure
+If you use this project in your research, please cite:
 
 ```
-GNNxEval/
-├── gnnxeval.py          # Main Flask application entry point
-├── requirements.txt      # Optional Python dependencies (for reference)
-├── environment.yml       # Conda environment configuration (recommended)
-├── README.md             # This file
+Affan Ahmed. "Design and Implementation of a Framework for Graph Neural Network Explainer Evaluation." Master's Thesis, 2023.
 ```
 
 ---
 
-## 🔬 Research Context
+## Contact
 
-This project implements research from the thesis:
-
-> **"Design and Implementation of a Framework for Graph Neural Network Explainer Evaluation"**
-
-The framework addresses the systematic evaluation of explainability methods for GNNs, building on recent work in graph neural network interpretability.
-
----
-
-## 📚 Dependencies
-
-- **Flask**: Web application framework
-- **Python**: Programming language
-- **Conda**: Environment management (recommended)
-- **GPU dependencies**: Included in Conda environment (optional for execution)
-
----
-
-## 🤝 Citation
-
-If you use this project in your research, consider citing the associated thesis:
-
-```
-Affan Ahmed. "Design and Implementation of a Framework for Graph Neural Network Explainer Evaluation." 2023.
-```
-
----
-
-## 📬 Contact
-
-For questions or feedback related to this thesis implementation, please reach out via the GitHub repository or associated academic contact.
-
----
-
-
-
-**Built as part of academic research on Graph Neural Network explainability**
+For questions or feedback, please open an issue on the [GitHub repository](https://github.com/affanahmed373/GNNxEval).
